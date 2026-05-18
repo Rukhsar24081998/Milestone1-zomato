@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Taste Trek | AI-Powered Flavor Discovery</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        @font-face {
+            font-family: 'metropolis';
+            src: url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap');
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        body {
+            font-family: 'metropolis', sans-serif;
+            background-color: #fbf9f8;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#1b1c1c",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "outline": "#8f6f6e",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e4e2e2",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#e4e2e2",
+                        "surface-bright": "#fbf9f8",
+                        "on-secondary-fixed-variant": "#474747",
+                        "primary-fixed-dim": "#ffb3b1",
+                        "inverse-surface": "#303031",
+                        "secondary-fixed": "#e4e2e1",
+                        "primary-container": "#db313f",
+                        "primary-fixed": "#ffdad8",
+                        "on-surface-variant": "#5b403f",
+                        "secondary": "#5f5e5e",
+                        "surface-container": "#efeded",
+                        "surface-tint": "#bb162c",
+                        "inverse-primary": "#ffb3b1",
+                        "secondary-fixed-dim": "#c8c6c6",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "secondary-container": "#e4e2e1",
+                        "surface": "#fbf9f8",
+                        "on-tertiary-container": "#fcfcfc",
+                        "on-secondary": "#ffffff",
+                        "outline-variant": "#e4bebc",
+                        "tertiary-fixed": "#e2e2e2",
+                        "surface-container-low": "#f5f3f3",
+                        "inverse-on-surface": "#f2f0f0",
+                        "error-container": "#ffdad6",
+                        "on-secondary-container": "#656464",
+                        "on-primary-fixed": "#410007",
+                        "on-error": "#ffffff",
+                        "on-background": "#1b1c1c",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#5b5c5c",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-primary-container": "#fffbff",
+                        "error": "#ba1a1a",
+                        "surface-dim": "#dbdad9",
+                        "on-primary-fixed-variant": "#92001c",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#737575",
+                        "surface-container-high": "#e9e8e7",
+                        "primary": "#b7122a",
+                        "background": "#fbf9f8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "md": "16px",
+                        "lg": "24px",
+                        "margin-desktop": "48px",
+                        "gutter": "16px",
+                        "base": "4px",
+                        "xl": "32px",
+                        "xs": "8px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["metropolis"],
+                        "label-lg": ["metropolis"],
+                        "body-md": ["metropolis"],
+                        "headline-md": ["metropolis"],
+                        "body-lg": ["metropolis"],
+                        "headline-lg": ["metropolis"],
+                        "display-lg-mobile": ["metropolis"],
+                        "display-lg": ["metropolis"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "display-lg": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "800"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface">
+<header class="flex justify-between items-center px-margin-mobile md:px-margin-desktop h-16 w-full sticky top-0 z-50 bg-surface dark:bg-surface-dim shadow-md transition-colors">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
+<span class="text-headline-lg font-headline-lg font-black text-primary tracking-tight">TASTE TREK</span>
+</div>
+<div class="hidden md:flex items-center gap-lg">
+<nav class="flex gap-md">
+<a class="text-label-lg font-label-lg text-primary px-3 py-1 bg-primary-container/10 rounded-xl" href="#">Home</a>
+<a class="text-label-lg font-label-lg text-on-surface-variant hover:text-primary transition-colors px-3 py-1" href="#">Collections</a>
+<a class="text-label-lg font-label-lg text-on-surface-variant hover:text-primary transition-colors px-3 py-1" href="#">Trending</a>
+</nav>
+<div class="h-8 w-8 rounded-full overflow-hidden border-2 border-primary/20">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmWcHUyRDIMisw8AF-ZvSqZcOzdiG9Dk1UI1YIfkbzPWm9SSYe3GIQx6d-ltXhuKLUjZlQSluEgLFESrwwuLqk_R9_LY0lz2bonww1e4bfBj_kPn3fOYK2jkx1QzLuaMcAkMzgiIvlke9YHevBvU84I_r_ZZM0Sk4U3riWnW0Ri3j5feHd-U_Iur4625zzxjgw2t30Yk7ko-UisFzBHEQ4AN316ZhvlDRHcaw9-iQxSPHyT1j0Vb5YCNCrj_bM7-H99TT6xaJ9oGUY"/>
+</div>
+</div>
+<button class="md:hidden p-2 text-on-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</header>
+<main class="w-full">
+<section class="relative w-full h-[85vh] md:h-[75vh] overflow-hidden">
+<div class="absolute inset-0 bg-black/40 z-10"></div>
+<img alt="Flavor Discovery Hero" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0uj5rNLAWxA1_cecreFg_F0gyRHiPfU7fXT6v0YDH8-KLS2bwxHF_t327hyrng0URMM-a6G8J9HmN_3kxUmcwFK-LzTDw3jDQb6Ucm-iC3p5DSX7LTeNdh8lkQtBqy1WqHx7elfQDnYwwhik2hxUU61nnip6cnsGaGQw2B6bDNrgEzqkvUZwyXbpBEgavYXwlYfjGA1pNu1B1wzRow10ZfEpWWxnke2F0OkOjKSUl8dG8vOegB4kUhtyi2Tt"/>
+<div class="relative z-20 flex flex-col items-center justify-center h-full px-margin-mobile text-center text-white max-w-4xl mx-auto">
+<h1 class="text-display-lg-mobile md:text-display-lg font-display-lg mb-4 drop-shadow-lg">Discover Your Next Favorite Meal</h1>
+<p class="text-body-lg font-body-lg mb-xl opacity-90 max-w-2xl">Taste Trek's Flavor AI learns your unique palate to recommend the perfect restaurant, tailored to your mood and location.</p>
+<div class="w-full max-w-3xl glass-card p-xs md:p-sm rounded-2xl shadow-2xl flex flex-col md:flex-row gap-xs items-stretch">
+<div class="flex-1 flex items-center bg-white rounded-xl px-sm border border-outline-variant/30">
+<span class="material-symbols-outlined text-outline">location_on</span>
+<input class="w-full bg-transparent border-none focus:ring-0 text-on-surface font-label-lg py-3" placeholder="New York City" type="text"/>
+</div>
+<div class="flex-1 flex items-center bg-white rounded-xl px-sm border border-outline-variant/30">
+<span class="material-symbols-outlined text-outline">payments</span>
+<select class="w-full bg-transparent border-none focus:ring-0 text-on-surface font-label-lg py-3">
+<option>Mid-range ($$)</option>
+<option>Budget ($)</option>
+<option>Fine Dining ($$$$)</option>
+</select>
+</div>
+<div class="flex-1 flex items-center bg-white rounded-xl px-sm border border-outline-variant/30">
+<span class="material-symbols-outlined text-outline">restaurant</span>
+<input class="w-full bg-transparent border-none focus:ring-0 text-on-surface font-label-lg py-3" placeholder="Italian, Sushi..." type="text"/>
+</div>
+<button class="bg-primary text-white font-label-lg px-xl py-3 md:py-0 rounded-xl hover:bg-primary-container transition-colors shadow-lg flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">bolt</span>
+                        Find Flavors
+                    </button>
+</div>
+</div>
+</section>
+<section class="py-xl px-margin-mobile md:px-margin-desktop bg-surface">
+<div class="flex flex-col md:flex-row justify-between items-end mb-lg gap-md">
+<div>
+<span class="text-primary font-label-lg uppercase tracking-widest mb-2 block">Curation for you</span>
+<h2 class="text-headline-lg font-headline-lg text-on-surface">Trending in NYC Right Now</h2>
+</div>
+<button class="text-primary font-label-lg flex items-center gap-1 hover:underline">
+                    View all collections <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-lg">
+<div class="md:col-span-6 lg:col-span-8 group relative h-[400px] rounded-3xl overflow-hidden shadow-lg">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A high-end modern restaurant interior with elegant wooden tables and warm overhead pendant lighting. The atmosphere is sophisticated and inviting, with a vibrant crowd enjoying their evening. The color palette features deep earth tones contrasted with brilliant warm accents, creating a premium culinary destination mood." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOk-z5Q8kKyEYHOv7-bgqlRp9PxCP9oiAbc9dZr5MDqSldWDk29pU8lc-OefYmOXELyFcAgAdjZuOcXEwi1WQzrqqm39KorlgF-7biGFKLpR9frPz3VRRLPxm6jHSN4NRhz4ax_hYmt0rRhvG_AVXf0D5CEh6_0mgDLA23VFZbYyONmZQVIKk-B6PM2njTy_xCekxR1878D3YjOsDuC1juX0nfvBI4T4k8u_khiHiyFC-O8da5qKqsFTWkoirDmcwCcF3C9TGepDwQ"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-lg text-white">
+<div class="flex gap-2 mb-2">
+<span class="bg-green-600 text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Top Rated</span>
+<span class="bg-primary text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Trending</span>
+</div>
+<h3 class="text-headline-lg font-headline-lg mb-1">The Gilded Fork</h3>
+<p class="text-body-md opacity-80 mb-sm max-w-md">Authentic Italian-American fusion in the heart of Chelsea. Known for the legendary Wagyu Meatballs.</p>
+<div class="flex items-center gap-4 text-label-sm">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm text-yellow-400" style="font-variation-settings: 'FILL' 1;">star</span> 4.9 (1.2k)</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">schedule</span> 20-30 min</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">distance</span> 0.8 miles</span>
+</div>
+</div>
+</div>
+<div class="md:col-span-6 lg:col-span-4 flex flex-col gap-lg">
+<div class="group relative h-[188px] rounded-3xl overflow-hidden shadow-lg">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="A close-up shot of artisanal cocktails on a polished marble bar top. The drinks are garnished with fresh herbs and vibrant citrus. The background shows a dimly lit, high-energy cocktail lounge with bokeh light effects from a back-lit bar shelf. The mood is chic, energetic, and perfectly suited for an urban nightlife experience." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBq31oaTOYsbMoMZZRdEORBeh7iqClqjh0fv3dPen7moNizNplykgKiZraE54C9OD-vSwYN_V8GuGg3bUUS4nPf9qLbpe8JHv15gquAeMlLuDeaOt_6YjP_rvYyrdD3AqSa9WhUAEj32Tpp8doKUEu41ZPx8xP6pShbE34tekpkmmdEDkcPnuyj7xdHg4VyWbJmH30Zs5bLqNIMO6HMrop-NdZM9tzv9YLO0RQznF6CX_J5DbjzCUzqvdPWRAmcuQnXmjujNY1CQZz"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-md text-white">
+<h3 class="text-headline-md font-headline-md">Midnight Mixology</h3>
+<p class="text-label-sm opacity-80">Best Rooftop Cocktails &amp; Tapas</p>
+</div>
+</div>
+<div class="group relative h-[188px] rounded-3xl overflow-hidden shadow-lg">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="An overhead flat lay of a gourmet burger and golden fries served on a minimalist black ceramic plate. The burger features high-quality ingredients, melted cheese, and fresh greens. The lighting is bright and appetizing, emphasizing the textures and freshness of the food against a clean, modern tabletop background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7_YQLARGnNHl4Lr9fJK0LailHqAwvaJ78euQBTn2v8IIcawfQrwjBhglLB_JUWRa5IOxs-nlq0yYBFbsFo-xIMri7FpBqdnsYs4pzNCTBGTBAOz3NJN8cehC6eSqVofXRjn6v7IbzHka4lZIjI6-U9zq47eXxUGhaaxUo6sLfvoyeQ9PlxlNw3PaVVEJUotzSVJtp9bFBtnkuuQUNCOzFlf0epINIJgnVjekxT5xMDe7I1edC9CG-5ivPjb3jjnyblMgYi11YPYZw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-md text-white">
+<h3 class="text-headline-md font-headline-md">Neo-Bistro Burgers</h3>
+<p class="text-label-sm opacity-80">Gourmet Casual Selections</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-xl px-margin-mobile md:px-margin-desktop overflow-hidden">
+<h2 class="text-headline-lg font-headline-lg text-on-surface mb-lg">What are you craving?</h2>
+<div class="flex gap-md overflow-x-auto pb-4 no-scrollbar">
+<div class="flex-shrink-0 flex flex-col items-center gap-2 group cursor-pointer">
+<div class="w-20 h-20 rounded-full bg-surface-container-high flex items-center justify-center transition-all group-hover:bg-primary-container group-hover:shadow-lg">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-white">local_pizza</span>
+</div>
+<span class="text-label-lg font-label-lg">Pizza</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center gap-2 group cursor-pointer">
+<div class="w-20 h-20 rounded-full bg-surface-container-high flex items-center justify-center transition-all group-hover:bg-primary-container group-hover:shadow-lg">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-white">ramen_dining</span>
+</div>
+<span class="text-label-lg font-label-lg">Ramen</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center gap-2 group cursor-pointer">
+<div class="w-20 h-20 rounded-full bg-primary flex items-center justify-center transition-all shadow-lg">
+<span class="material-symbols-outlined text-4xl text-white">dinner_dining</span>
+</div>
+<span class="text-label-lg font-label-lg text-primary">Steak</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center gap-2 group cursor-pointer">
+<div class="w-20 h-20 rounded-full bg-surface-container-high flex items-center justify-center transition-all group-hover:bg-primary-container group-hover:shadow-lg">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-white">bakery_dining</span>
+</div>
+<span class="text-label-lg font-label-lg">Bakery</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center gap-2 group cursor-pointer">
+<div class="w-20 h-20 rounded-full bg-surface-container-high flex items-center justify-center transition-all group-hover:bg-primary-container group-hover:shadow-lg">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-white">set_meal</span>
+</div>
+<span class="text-label-lg font-label-lg">Seafood</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center gap-2 group cursor-pointer">
+<div class="w-20 h-20 rounded-full bg-surface-container-high flex items-center justify-center transition-all group-hover:bg-primary-container group-hover:shadow-lg">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-white">icecream</span>
+</div>
+<span class="text-label-lg font-label-lg">Desserts</span>
+</div>
+<div class="flex-shrink-0 flex flex-col items-center gap-2 group cursor-pointer">
+<div class="w-20 h-20 rounded-full bg-surface-container-high flex items-center justify-center transition-all group-hover:bg-primary-container group-hover:shadow-lg">
+<span class="material-symbols-outlined text-4xl text-on-surface-variant group-hover:text-white">local_cafe</span>
+</div>
+<span class="text-label-lg font-label-lg">Coffee</span>
+</div>
+</div>
+</section>
+<section class="py-xl px-margin-mobile md:px-margin-desktop bg-surface-container-low mb-xl">
+<div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-xl">
+<div class="flex-1 space-y-md">
+<h2 class="text-display-lg-mobile font-display-lg text-on-surface">Meet Flavor AI. Your new personal concierge.</h2>
+<p class="text-body-lg text-on-surface-variant">We don't just show you restaurants. We understand your preferences, allergies, and price sensitivity to map out your perfect culinary journey.</p>
+<ul class="space-y-sm">
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div>
+<h4 class="text-label-lg font-label-lg">Personalized Taste Profile</h4>
+<p class="text-body-md opacity-70">Build your palate profile through quick flavor polls.</p>
+</div>
+</li>
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div>
+<h4 class="text-label-lg font-label-lg">Group Recommendation Engine</h4>
+<p class="text-body-md opacity-70">Pick a spot that everyone will love, automatically.</p>
+</div>
+</li>
+<li class="flex items-start gap-sm">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div>
+<h4 class="text-label-lg font-label-lg">Real-time Wait AI</h4>
+<p class="text-body-md opacity-70">Accurate live prediction of wait times at popular spots.</p>
+</div>
+</li>
+</ul>
+<button class="bg-primary text-white font-label-lg px-lg py-4 rounded-xl shadow-lg hover:scale-[1.02] active:scale-[0.98] transition-all">Start Your Taste Trek</button>
+</div>
+<div class="flex-1 relative">
+<div class="w-full aspect-square rounded-[48px] overflow-hidden shadow-2xl relative z-10">
+<img class="w-full h-full object-cover" data-alt="A portrait of a happy group of diverse friends laughing and sharing a variety of colorful dishes at a bright, modern restaurant. The table is filled with tapas, wine, and craft cocktails. The lighting is warm and golden, creating a joyful, hospitable, and energetic mood that celebrates the social aspect of dining." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAV2cU7C8hJmfA3_GdGsuN32nMJH-k_04LqVIPDeQ9lrAoTfRJTBM6UvkSM62WlHhjX8Qornb1PT1VFqIrZL7h3nxCoSid-5DdYwKxsCMFH0TqObIKIdWzoD13pAa-QJYlATdlx4mqwRwGM3vDRrOa-M4yuxbU3YY3WoifpL6PzcVrAqBPK3eQMQWiPGUPMwG6OBb9xxT7tc4tZa1tIEgWs0Z1SxnQ72uHJG6v0TG-O8tGGDKZVKNdwioxcubtxRkc0RJPyMNa5l_HS"/>
+</div>
+<div class="absolute -top-6 -right-6 w-32 h-32 bg-primary-container rounded-3xl -z-0 opacity-20"></div>
+<div class="absolute -bottom-10 -left-10 w-48 h-48 border-[20px] border-outline-variant/30 rounded-full -z-0"></div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-inverse-surface text-inverse-on-surface py-xl px-margin-mobile md:px-margin-desktop">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-xl">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-2 mb-lg">
+<span class="material-symbols-outlined text-primary-fixed text-3xl" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
+<span class="text-headline-md font-headline-md font-black tracking-tight">TASTE TREK</span>
+</div>
+<p class="text-label-lg opacity-70 mb-lg">Revolutionizing how the world eats, one bite at a time.</p>
+<div class="flex gap-md">
+<span class="material-symbols-outlined opacity-60 hover:opacity-100 cursor-pointer">public</span>
+<span class="material-symbols-outlined opacity-60 hover:opacity-100 cursor-pointer">language</span>
+<span class="material-symbols-outlined opacity-60 hover:opacity-100 cursor-pointer">share</span>
+</div>
+</div>
+<div>
+<h4 class="text-label-lg font-label-lg text-primary-fixed mb-md">For Foodies</h4>
+<ul class="space-y-sm text-label-lg opacity-70">
+<li class="hover:text-primary-fixed cursor-pointer">Flavor AI Profile</li>
+<li class="hover:text-primary-fixed cursor-pointer">Foodie Communities</li>
+<li class="hover:text-primary-fixed cursor-pointer">Mobile App</li>
+<li class="hover:text-primary-fixed cursor-pointer">Taste Rewards</li>
+</ul>
+</div>
+<div>
+<h4 class="text-label-lg font-label-lg text-primary-fixed mb-md">For Restaurants</h4>
+<ul class="space-y-sm text-label-lg opacity-70">
+<li class="hover:text-primary-fixed cursor-pointer">Partner with Us</li>
+<li class="hover:text-primary-fixed cursor-pointer">Business Dashboard</li>
+<li class="hover:text-primary-fixed cursor-pointer">Marketing Tools</li>
+<li class="hover:text-primary-fixed cursor-pointer">Kitchen AI</li>
+</ul>
+</div>
+<div>
+<h4 class="text-label-lg font-label-lg text-primary-fixed mb-md">Newsletter</h4>
+<p class="text-label-lg opacity-70 mb-sm">Get weekly hidden gems in NYC.</p>
+<div class="flex bg-white/10 rounded-lg p-1">
+<input class="bg-transparent border-none focus:ring-0 text-white flex-1 text-label-sm px-2" placeholder="email@example.com" type="email"/>
+<button class="bg-primary-container px-3 py-1 rounded text-white text-label-sm font-bold">Join</button>
+</div>
+</div>
+</div>
+<div class="mt-xl pt-lg border-t border-white/10 text-center text-label-sm opacity-50">
+            © 2024 Taste Trek. Powered by Flavor AI. All rights reserved.
+        </div>
+</footer>
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-2 py-3 pb-safe bg-surface dark:bg-surface-dim shadow-[0_-4px_12px_rgba(0,0,0,0.05)] rounded-t-xl transition-all">
+<div class="flex flex-col items-center justify-center bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-xl px-4 py-1 active:scale-90 duration-200 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="text-label-sm font-label-sm">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim px-4 py-1 active:scale-90 duration-200 transition-transform">
+<span class="material-symbols-outlined">bookmarks</span>
+<span class="text-label-sm font-label-sm">Collections</span>
+</div>
+<div class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim px-4 py-1 active:scale-90 duration-200 transition-transform">
+<span class="material-symbols-outlined">person</span>
+<span class="text-label-sm font-label-sm">Profile</span>
+</div>
+</nav>
+</body></html>
