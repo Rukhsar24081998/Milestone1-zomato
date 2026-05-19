@@ -30,11 +30,18 @@ st.set_page_config(
 st.markdown(
     """
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
         /* Brand colours */
         :root {
             --zomato-red: #b7122a;
             --zomato-light: #fdf3f4;
             --zomato-muted: #5b403f;
+            --zomato-dark: #1b1c1c;
+        }
+
+        body, .css-1d391kg, .stTextInput, .stSelectbox, .stNumberInput {
+            font-family: 'Inter', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
         }
 
         /* Header strip */
@@ -69,6 +76,22 @@ st.markdown(
             margin-bottom: 1.2rem;
             font-size: 0.95rem;
             color: var(--zomato-muted);
+        }
+
+        .stButton>button {
+            background: var(--zomato-red) !important;
+            color: white !important;
+            border-radius: 10px !important;
+            padding: 0.8rem 1.2rem !important;
+        }
+        .stButton>button:hover {
+            background: #a51124 !important;
+        }
+
+        .stTextInput>div>div>input,
+        .stNumberInput>div>div>input,
+        .stSelectbox>div>div>div>div>div>select {
+            border-radius: 10px !important;
         }
 
         /* Restaurant card */
@@ -136,7 +159,7 @@ st.markdown(
         <span style="font-size:2rem">🍽️</span>
         <div>
             <h1>ZOMATO AI</h1>
-            <p>AI-powered restaurant recommendations for India</p>
+            <p>AI-powered restaurant recommendations for all of India</p>
         </div>
     </div>
     """,
@@ -174,18 +197,23 @@ st.markdown("---")
 # ── Search form ───────────────────────────────────────────────────────────────
 st.subheader("🔍 Find your next favourite meal")
 
-col1, col2 = st.columns(2)
+col1, col2 = st.columns([3, 1])
 with col1:
     location = st.text_input(
         "City",
-        placeholder="Bangalore, Mumbai, Delhi…",
-        help="Type any Indian city. The dataset is mostly Bangalore.",
+        placeholder="Bangalore, Mumbai, Delhi, or leave blank for all India",
+        help="Type any Indian city, or leave blank to search across all of India.",
     )
     cuisine = st.text_input(
         "Cuisine",
         placeholder="North Indian, Italian, Biryani…",
     )
 with col2:
+    all_india = st.checkbox(
+        "Search across all India",
+        value=False,
+        help="Check this to search nationwide instead of a specific city.",
+    )
     budget_inr = st.number_input(
         "Budget (₹ per person)",
         min_value=0,
@@ -200,6 +228,10 @@ with col2:
         value=4.0,
         format_func=lambda x: f"{x:.0f} & above" if x < 5 else "5 only",
     )
+
+if all_india:
+    location = None
+    st.info("Searching across all Indian cities. No city filter is applied.")
 
 # Map INR amount → budget band
 def inr_to_band(amount: int) -> str:
@@ -223,7 +255,7 @@ search_clicked = st.button(
 # ── Results ───────────────────────────────────────────────────────────────────
 if search_clicked:
     payload = {
-        "location": location.strip() or None,
+        "location": None if all_india else (location.strip() or None),
         "budget": budget_band,
         "cuisine": cuisine.strip() or None,
         "min_rating": min_rating,
