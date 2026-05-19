@@ -159,7 +159,7 @@ st.markdown(
         <span style="font-size:2rem">🍽️</span>
         <div>
             <h1>ZOMATO AI</h1>
-            <p>AI-powered restaurant recommendations for all of India</p>
+            <p>AI-powered restaurant recommendations in India</p>
         </div>
     </div>
     """,
@@ -198,7 +198,6 @@ st.markdown("---")
 st.subheader("🔍 Find your next favourite meal")
 
 city_options = [
-    "All India",
     "Bangalore",
     "Mumbai",
     "Delhi",
@@ -217,7 +216,7 @@ with col1:
         "City",
         options=city_options,
         index=0,
-        help="Select a city or choose All India to search across the entire country.",
+        help="Select the city for which you want restaurant recommendations.",
     )
     cuisine = st.text_input(
         "Cuisine",
@@ -238,10 +237,6 @@ with col2:
         value=4.0,
         format_func=lambda x: f"{x:.0f} & above" if x < 5 else "5 only",
     )
-
-if location == "All India":
-    location = None
-    st.info("Searching across all Indian cities. No city filter is applied.")
 
 # Map INR amount → budget band
 def inr_to_band(amount: int) -> str:
