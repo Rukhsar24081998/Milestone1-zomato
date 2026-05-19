@@ -6,12 +6,12 @@ services:
     buildCommand: pip install -e .
     startCommand: uvicorn milestone_zomato_api.main:app --host 0.0.0.0 --port $PORT
     envVars:
-      - key: OPENAI_API_KEY
+      - key: GROQ_API_KEY
         sync: false          # set manually in Render dashboard — never commit the value
       - key: ZOMATO_LLM_PROVIDER
-        value: openai
+        value: groq
       - key: ZOMATO_LLM_MODEL
-        value: gpt-4o-mini
+        value: llama-3.3-70b-versatile
       - key: ZOMATO_FILTER_TOP_K
         value: "50"
       - key: ZOMATO_RESTAURANT_CACHE_PATH
