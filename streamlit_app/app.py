@@ -197,23 +197,33 @@ st.markdown("---")
 # ── Search form ───────────────────────────────────────────────────────────────
 st.subheader("🔍 Find your next favourite meal")
 
+city_options = [
+    "All India",
+    "Bangalore",
+    "Mumbai",
+    "Delhi",
+    "Chennai",
+    "Hyderabad",
+    "Kolkata",
+    "Pune",
+    "Ahmedabad",
+    "Jaipur",
+    "Lucknow",
+    "Goa",
+]
 col1, col2 = st.columns([3, 1])
 with col1:
-    location = st.text_input(
+    location = st.selectbox(
         "City",
-        placeholder="Bangalore, Mumbai, Delhi, or leave blank for all India",
-        help="Type any Indian city, or leave blank to search across all of India.",
+        options=city_options,
+        index=0,
+        help="Select a city or choose All India to search across the entire country.",
     )
     cuisine = st.text_input(
         "Cuisine",
         placeholder="North Indian, Italian, Biryani…",
     )
 with col2:
-    all_india = st.checkbox(
-        "Search across all India",
-        value=False,
-        help="Check this to search nationwide instead of a specific city.",
-    )
     budget_inr = st.number_input(
         "Budget (₹ per person)",
         min_value=0,
@@ -229,7 +239,7 @@ with col2:
         format_func=lambda x: f"{x:.0f} & above" if x < 5 else "5 only",
     )
 
-if all_india:
+if location == "All India":
     location = None
     st.info("Searching across all Indian cities. No city filter is applied.")
 
@@ -255,7 +265,7 @@ search_clicked = st.button(
 # ── Results ───────────────────────────────────────────────────────────────────
 if search_clicked:
     payload = {
-        "location": None if all_india else (location.strip() or None),
+        "location": location,
         "budget": budget_band,
         "cuisine": cuisine.strip() or None,
         "min_rating": min_rating,
