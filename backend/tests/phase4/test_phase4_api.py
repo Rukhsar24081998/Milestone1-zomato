@@ -60,3 +60,67 @@ def test_recommend_api(
     assert len(data["results"]) == 1
     assert data["results"][0]["name"] == "Cafe 1"
     assert data["results"][0]["explanation"] == "Perfect match."
+
+
+@patch("milestone_zomato_api.main.generate_summary_blurb")
+@patch("milestone_zomato_api.main.recommend")
+@patch("milestone_zomato_api.main.filter_candidates")
+@patch("milestone_zomato_api.main.list_restaurants")
+def test_recommend_api_relaxes_unknown_location(
+    mock_list_restaurants: MagicMock,
+    mock_filter_candidates: MagicMock,
+    mock_recommend: MagicMock,
+    mock_generate_summary_blurb: MagicMock,
+) -> None:
+    import pandas as pd
+
+    from milestone_zomato.models.recommendation import Recommendation
+    from milestone_zomato.models.restaurant import Restaurant
+
+    mock_list_restaurants.return_value = pd.DataFrame([
+        {
+            "id": "r1",
+            "name": "Cafe 1",
+            "city": "Bangalore",
+            "area": "Koramangala",
+            "cuisines": ["Chinese"],
+            "cost_bucket": "medium",
+            "rating": 4.0,
+        }
+    ])
+
+    mock_filter_candidates.side_effect = [
+        [],
+        [
+            Restaurant(
+                id="r1",
+                name="Cafe 1",
+                city="Bangalore",
+                area="Koramangala",
+                cuisines=["Chinese"],
+                cost_bucket="medium",
+                rating=4.0,
+            )
+        ],
+    ]
+
+    mock_recommend.return_value = (
+        [Recommendation(restaurant_id="r1", rank=1, explanation="Perfect match.")],
+        "Expert summary",
+    )
+
+    mock_generate_summary_blurb.return_value = "Groq says these are awesome."
+
+    response = client.post(
+        "/api/recommend",
+        json={"location": "Mumbai", "budget": "medium", "cuisine": "Chinese"},
+    )
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["summary_blurb"] == "Expert summary"
+    assert len(data["results"]) == 1
+    assert mock_filter_candidates.call_count == 2
+    second_prefs = mock_filter_candidates.call_args_list[1][0][0]
+    assert second_prefs.location is None
+    assert second_prefs.cuisine == "Chinese"

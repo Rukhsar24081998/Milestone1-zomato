@@ -12,6 +12,7 @@ from milestone_zomato.data.store import list_restaurants
 from milestone_zomato.filter.engine import filter_candidates
 from milestone_zomato.llm.recommend import recommend
 from milestone_zomato.models.preferences import UserPreferences
+from milestone_zomato_filter.matching import city_matches, cuisine_matches
 from milestone_zomato_api.dto import PresentationResponse, PresentationResult
 from milestone_zomato_api.summary import generate_summary_blurb
 from milestone_zomato_ops.middleware import OperationalMiddleware
@@ -87,7 +88,23 @@ def _get_recommendations_pipeline(prefs: UserPreferences):
     # Phase 2: Deterministic Filtering
     with Timer("filter_candidates"):
         candidates = filter_candidates(prefs)
-    
+
+        if not candidates and (prefs.location or prefs.cuisine):
+            if prefs.location:
+                location_mask = (
+                    df["city"].apply(lambda v: city_matches(v, prefs.location)) |
+                    df["area"].apply(lambda v: city_matches(v, prefs.location))
+                )
+                if not location_mask.any():
+                    relaxed = prefs.model_copy(update={"location": None})
+                    candidates = filter_candidates(relaxed)
+
+            if not candidates and prefs.cuisine:
+                cuisine_mask = df["cuisines"].apply(lambda v: cuisine_matches(v, prefs.cuisine))
+                if not cuisine_mask.any():
+                    relaxed = prefs.model_copy(update={"cuisine": None})
+                    candidates = filter_candidates(relaxed)
+
     MetricsLogger.log_metrics("filter_stats", candidate_count=len(candidates))
 
     # Phase 3: LLM Recommendations (Combined with summary blurb)

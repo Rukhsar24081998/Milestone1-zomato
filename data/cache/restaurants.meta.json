@@ -1,0 +1,6 @@
+{
+  "dataset_id": "ManikaSaini/zomato-restaurant-recommendation",
+  "revision": null,
+  "rows_written": 51717,
+  "parquet_path": "/Users/rukhsarkhan/MILESTONE - ZOMATO/data/cache/restaurants.parquet"
+}
