@@ -57,7 +57,22 @@ def recommend_from_llm(prefs: UserPreferences, candidates: List[Restaurant]) -> 
         summary_blurb = response.summary_blurb
     except Exception as e:
         logger.error(f"Failed to fetch recommendations from LLM: {e}")
-        return [], "We couldn't reach our foodie expert at the moment. Please try again later."
+        # Fall back to deterministic ranking so users still receive useful results
+        logger.info("Falling back to deterministic ranking due to LLM error.")
+        tmp = sorted(
+            candidates,
+            key=lambda r: (
+                -(r.rating or -1.0),
+                str(r.name).strip().casefold(),
+                r.id,
+            ),
+        )
+        raw_recommendations = []
+        for idx, r in enumerate(tmp[: min(10, len(tmp)) ]):
+            raw_recommendations.append(
+                Recommendation(restaurant_id=r.id, rank=idx + 1, explanation="Recommended based on deterministic filters and rating (LLM unavailable).")
+            )
+        summary_blurb = "Here are your top restaurant recommendations!"
 
     # 3. Grounding Guard
     valid_ids = {r.id for r in candidates}
