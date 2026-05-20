@@ -11,7 +11,7 @@ import { SkeletonLoader } from "@/components/SkeletonCard";
 import { Footer } from "@/components/Footer";
 import { MobileNavigation } from "@/components/MobileNavigation";
 import { UserPreferences, PresentationResponse, PresentationResult } from "@/types";
-import { getRecommendations } from "@/lib/api";
+import { API_BASE_URL, getRecommendations } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
 
 /** Clean up numpy-style cuisine strings like "['North Indian' 'Chinese']" → "North Indian, Chinese" */
@@ -61,7 +61,12 @@ export default function Home() {
       });
     } catch (err) {
       console.error(err);
-      setError("Couldn't reach the server. Please make sure the backend is running on port 8000.");
+      setError(
+        `Couldn't reach the backend at ${API_BASE_URL}. ` +
+        (process.env.NEXT_PUBLIC_API_URL
+          ? "Please ensure the deployed backend is available."
+          : "If you're deploying to Vercel, set NEXT_PUBLIC_API_URL in project settings.")
+      );
     } finally {
       setIsLoading(false);
     }
