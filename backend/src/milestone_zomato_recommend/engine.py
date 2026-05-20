@@ -22,6 +22,31 @@ def recommend_from_llm(prefs: UserPreferences, candidates: List[Restaurant]) -> 
     if not candidates:
         return [], "No candidates found."
 
+    # If Groq API key is not configured, fall back to a deterministic ranking
+    from milestone_zomato.config.settings import get_settings
+    import os
+
+    settings = get_settings()
+    groq_key = settings.groq_api_key.get_secret_value() if settings.groq_api_key else os.environ.get("GROQ_API_KEY")
+    if not groq_key:
+        logger.info("GROQ_API_KEY not set; using deterministic ranking fallback.")
+        # Rank candidates by rating (desc), then name, then id
+        tmp = sorted(
+            candidates,
+            key=lambda r: (
+                -(r.rating or -1.0),
+                str(r.name).strip().casefold(),
+                r.id,
+            ),
+        )
+        raw_recommendations: List[Recommendation] = []
+        for idx, r in enumerate(tmp[: min(10, len(tmp)) ]):
+            raw_recommendations.append(
+                Recommendation(restaurant_id=r.id, rank=idx + 1, explanation="Recommended based on deterministic filters and rating.")
+            )
+        summary_blurb = "Here are your top restaurant recommendations!"
+        return raw_recommendations, summary_blurb
+
     # 1. Build prompt
     user_prompt = build_user_prompt(prefs, candidates)
 
