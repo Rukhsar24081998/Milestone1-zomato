@@ -41,7 +41,7 @@ _default_origins = [
 app.add_middleware(
     CORSMiddleware,
     allow_origins=_default_origins + _extra_origins,
-    allow_origin_regex=r"https://(.*\.streamlit\.app|.*\.onrender\.com)",
+    allow_origin_regex=r"https://(.*\.streamlit\.app|.*\.onrender\.com|.*\.vercel\.app)",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
